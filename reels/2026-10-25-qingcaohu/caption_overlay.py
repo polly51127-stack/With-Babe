@@ -15,7 +15,8 @@ CAPS=[('跟你看這場煙火之前...',0,1.5,0.45,'type'),
 ('出發！青草湖',20.0,21.0,0.70,'pop'),
 ('青草湖 × 蠟筆小新',21.0,23.6,0.12,'rise'),
 ('一起等天黑',23.6,25.6,0.72,'rise'),
-('我們一起解鎖更多地方',29.4,36.9,0.25,'type')]
+('謝謝你陪我看這場煙火',29.4,33.4,0.25,'type'),
+('未來我們一起解鎖更多……',33.4,39.0,0.25,'type')]
 SH=lambda x: round(x-2.1,3) if x>15.2 else (round(x+0.4,3) if x>=2.0 else x)
 CAPS=[(c,SH(a),SH(b),y,an) for (c,a,b,y,an) in CAPS]
 PAD=40
@@ -62,7 +63,7 @@ for fi in range(round(DUR*FPS)):
     t=fi/FPS; fr=Image.new('RGBA',(W,H),(0,0,0,0))
     for (txt,a,b,yf,an) in CAPS:
         if not(a<=t<b): continue
-        lt=t-a; cy=yf*H; out_a=min(1,(b-t)/0.2) if b<DUR-0.01 else 1
+        lt=t-a; cy=yf*H; out_a=min(1,(b-t)/(0.5 if b>DUR-0.5 else 0.2)) if b<DUR-0.01 else 1
         if an=='type':
             n=len(txt); per=0.07 if b-a<3 else 0.11
             k=min(n,int(lt/per)+1); im,_=get(txt[:k]); full,_=get(txt)
