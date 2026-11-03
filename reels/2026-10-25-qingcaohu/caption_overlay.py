@@ -6,7 +6,7 @@ FONT=os.path.expanduser('~/.fonts/NotoSerifCJKtc-Black.otf')
 font=ImageFont.truetype(FONT,72)
 # text, start, end, y-center fraction, anim
 CAPS=[('跟你看這場煙火之前...',0,1.5,0.45,'type'),
-('回到早上 10 點',1.5,2.6,0.22,'pop'),
+('稍早前……',1.5,2.6,0.22,'pop'),
 ('新竹的海風很大',2.6,5.1,0.12,'rise'),
 ('我男友拍照的時候',9.5,13.8,0.14,'rise'),
 ('但還是很可愛啦',13.8,15.2,0.12,'rise'),
