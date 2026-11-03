@@ -1,5 +1,5 @@
 import subprocess,sys,numpy as np
-S=sys.argv[1]; A=S+'/sfx/a/'; DUR=39.5
+S=sys.argv[1]; A=S+'/sfx/a/'; DUR=37.0
 def pcm(f):
     raw=subprocess.run(['ffmpeg','-v','error','-i',f,'-ac','1','-ar','8000','-f','s16le','-'],capture_output=True).stdout
     return np.abs(np.frombuffer(raw,np.int16).astype(float))
@@ -9,11 +9,11 @@ def peak(f): x=pcm(f); e=np.convolve(x,np.ones(400)/400,'same'); return float(np
 E=[(S+'/src/210.mp4',0.0,'at',0.9,4.0,1.5,0.15),
    (A+'1092.mp3',1.5,'on',1.0,0,1.5,0.3),
    (A+'1206.mp3',3.0,'at',0.45,10,2.5,0.4)]
-E+=[(A+'1430.mp3',t,'on',0.8,0,None,0) for t in (7.5,8.1,8.7,9.3)]
+E+=[(A+'1430.mp3',t,'on',0.8,0,None,0) for t in (7.5,8.3,9.1)]
 E+=[(A+'2364.mp3',10.7+0.2*i,'on',0.55,0,0.25,0.05) for i in range(11)]
 E+=[(A+'2192.mp3',14.4,'on',1.0,0,None,0)]
-E+=[(A+'2350.mp3',28.8,'pk',0.8,0,None,0)]
-E+=[(S+'/src/210.mp4',29.8,'at',0.75,2.0,9.7,1.5)]
+E+=[(A+'2350.mp3',26.3,'pk',0.8,0,None,0)]
+E+=[(S+'/src/210.mp4',27.3,'at',0.75,2.0,9.7,1.5)]
 ins=[];fl=[]
 for k,(f,t,al,vol,ss,ml,fo) in enumerate(E):
     off={'on':onset,'pk':peak}.get(al,lambda f:0)(f) if al!='at' else 0
@@ -23,7 +23,7 @@ for k,(f,t,al,vol,ss,ml,fo) in enumerate(E):
     if fo and ml: chain+=f',afade=t=out:st={ml-fo}:d={fo}'
     chain+=f',adelay={int(delay*1000)}:all=1[e{k}]'; fl.append(chain)
 n=len(E); m=n
-ins+=['-ss','25.1','-i',S+'/music/839.mp3']
+ins+=['-ss','27.6','-i',S+'/music/839.mp3']
 fl.append(''.join(f'[e{k}]' for k in range(n))+f'amix=inputs={n}:normalize=0,apad,atrim=0:{DUR},asplit[sfx][key]')
 fl.append(f'[{m}:a]aresample=48000,aformat=channel_layouts=stereo,atrim=0:{DUR-3.0},asetpts=PTS-STARTPTS,volume=0.55,afade=t=in:d=0.5,afade=t=out:st={DUR-3.0-2.2}:d=2.2,adelay=3000:all=1,apad,atrim=0:{DUR}[mus]')
 fl.append('[mus][key]sidechaincompress=threshold=0.03:ratio=5:attack=15:release=300:makeup=1[duck]')

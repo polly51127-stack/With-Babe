@@ -1,22 +1,22 @@
 # Renders animated caption/decoration overlay as raw RGBA frames to stdout
 import sys,math,os
 from PIL import Image,ImageDraw,ImageFont,ImageFilter,ImageChops
-W,H,FPS,DUR=1080,1920,30,39.5
+W,H,FPS,DUR=1080,1920,30,37.0
 FONT=os.path.expanduser('~/.fonts/NotoSerifCJKtc-Black.otf')
 font=ImageFont.truetype(FONT,72)
 # text, start, end, y-center fraction, anim
 CAPS=[('跟你看這場煙火之前...',0,1.5,0.45,'type'),
 ('稍早前……',1.5,2.6,0.22,'pop'),
-('新竹的海風很大',2.6,5.1,0.12,'rise'),
+('解鎖你的第一次',2.6,5.1,0.12,'rise'),
+('竹風漁港體驗',5.1,9.5,0.12,'rise'),
 ('我男友拍照的時候',9.5,13.8,0.14,'rise'),
 ('但還是很可愛啦',13.8,15.2,0.12,'rise'),
-('先去吃海鮮',15.2,17.7,0.22,'rise'),
 ('動物園巡禮',17.7,20.0,0.12,'rise'),
 ('出發！青草湖',20.0,21.0,0.70,'pop'),
 ('青草湖 × 蠟筆小新',21.0,23.6,0.12,'rise'),
 ('一起等天黑',23.6,25.6,0.72,'rise'),
-('謝謝你陪我看這場煙火',29.4,36.9,0.25,'type')]
-SH=lambda x: round(x+0.4,3) if x>=2.0 else x
+('我們一起解鎖更多地方',29.4,36.9,0.25,'type')]
+SH=lambda x: round(x-2.1,3) if x>15.2 else (round(x+0.4,3) if x>=2.0 else x)
 CAPS=[(c,SH(a),SH(b),y,an) for (c,a,b,y,an) in CAPS]
 PAD=40
 def sprite(txt,fnt=font,fill=(255,255,255,255)):
@@ -85,9 +85,9 @@ for fi in range(round(DUR*FPS)):
             al=min(1,lt/0.15)*max(0,min(1,(1.3-lt)/0.3)); sc=0.5+0.5*back(lt/0.3)
             put(fr,hm,x0*W+18*math.sin(lt*6),0.30*H-160*lt*sp,al,sc)
     # twinkling stars around the moon (28.4-29.4)
-    if 28.8<=t<29.8:
+    if 26.3<=t<27.3:
         for (x,y,d0,s) in [(0.30,0.38,0.0,1.0),(0.72,0.33,0.15,0.7),(0.62,0.62,0.3,0.85),(0.25,0.60,0.45,0.6),(0.80,0.50,0.2,0.5)]:
-            lt=t-28.8-d0
+            lt=t-26.3-d0
             if lt<0: continue
             put(fr,STAR,x*W,y*H,max(0,math.sin(min(1,lt/0.6)*math.pi)),s*(0.6+0.4*math.sin(min(1,lt/0.6)*math.pi)))
     out.write(fr.tobytes())
