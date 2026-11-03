@@ -20,8 +20,8 @@ PAD=40
 def sprite(txt,fnt=font,fill=(255,255,255,255)):
     l,t,r,b=fnt.getbbox(txt); w,h=r-l+2*PAD,b-t+2*PAD
     a=Image.new('L',(w,h),0); ImageDraw.Draw(a).text((PAD-l,PAD-t),txt,font=fnt,fill=255)
-    g=ImageChops.add(a.filter(ImageFilter.GaussianBlur(14)).point(lambda v:min(255,int(v*2.2))),
-                     a.filter(ImageFilter.GaussianBlur(5)).point(lambda v:min(255,int(v*1.6))))
+    g=ImageChops.add(a.filter(ImageFilter.GaussianBlur(12)).point(lambda v:min(255,int(v*1.1))),
+                     a.filter(ImageFilter.GaussianBlur(4)).point(lambda v:min(255,int(v*0.8))))
     im=Image.new('RGBA',(w,h),(0,0,0,0)); im.putalpha(g)
     fg=Image.new('RGBA',(w,h),fill); fg.putalpha(a); im.alpha_composite(fg)
     return im,(PAD-l,PAD-t)
