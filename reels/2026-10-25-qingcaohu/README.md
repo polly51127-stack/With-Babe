@@ -21,3 +21,10 @@
 | 36.9–39.1 | #218 人群剪影（淡出） | 2026.10.25 新竹青草湖 |
 
 `build_rough_cut.py` 是剪輯腳本（需 ffmpeg、Pillow、文泉驛正黑字型；原始素材放在 `<dir>/src/`）。影片與照片不放進 repo。
+
+## v3（最終版）
+- 字幕：思源宋體 Black（Noto Serif CJK TC Black），白字＋黑色光暈，無黑框；依畫面避開人臉調整位置。
+- 字幕動畫：打字機（開頭、煙火）、彈出（回到早上、出發）、上滑淡入（其他）；↓ 箭頭彈跳、親臉頰飄愛心、月亮閃光星星。
+- 配樂：Mixkit「Tears of Joy」（Michael Ramir C.，Mixkit 免費授權），倒帶結束後（2.0s）進入，音效出現時自動壓低。
+- 音效（Mixkit）：1A 快速倒帶、2B 拍岸浪、3A 相機快門、4A 每格啵、5A 小親親、6A 空氣 whoosh、7A 魔法閃光、8A 煙火現場原音（取自 #210）。
+- 腳本：`caption_overlay.py`（字幕／動畫圖層）、`audio_mix.py`（混音）。
