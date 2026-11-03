@@ -28,3 +28,7 @@
 - 配樂：Mixkit「Tears of Joy」（Michael Ramir C.，Mixkit 免費授權），倒帶結束後（2.0s）進入，音效出現時自動壓低。
 - 音效（Mixkit）：1A 快速倒帶、2B 拍岸浪、3A 相機快門、4A 每格啵、5A 小親親、6A 空氣 whoosh、7A 魔法閃光、8A 煙火現場原音（取自 #210）。
 - 腳本：`caption_overlay.py`（字幕／動畫圖層）、`audio_mix.py`（混音）。
+
+## v4
+- 拿掉最後的日期地點字幕（結尾只留煙火畫面）。
+- 拿掉段落轉場 whoosh 音效（6A）。
